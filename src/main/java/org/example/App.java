@@ -1,4 +1,5 @@
 package org.example;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 /*
@@ -10,22 +11,33 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "What is the first number? " );
 
+        DecimalFormat f = new DecimalFormat("##.00");
         Scanner scanner = new Scanner(System.in);
-        String first, second;
-        int firstNumber, secondNumber;
+        float totalPrice = 0.00f, tax;
+        final int items = 3;
+        final float taxRate = .055f;
 
-        first = scanner.nextLine();
-        firstNumber = Integer.parseInt(first);
+        for (int i = 1; i <= items; i++)
+        {
+            int quantity;
+            float itemPrice, subTotal;
+            System.out.println( "Enter the price of item " + i + ": " );
+            itemPrice = scanner.nextFloat();
 
-        System.out.println( "What is the second number? " );
-        second = scanner.nextLine();
-        secondNumber = Integer.parseInt(second);
+            System.out.println( "Enter the quantity of item " + i + ": " );
+            quantity = scanner.nextInt();
 
-        System.out.println( firstNumber + " + " + secondNumber + " = " + (firstNumber+secondNumber));
-        System.out.println( firstNumber + " - " + secondNumber + " = " + (firstNumber-secondNumber));
-        System.out.println( firstNumber + " * " + secondNumber + " = " + (firstNumber*secondNumber));
-        System.out.println( firstNumber + " / " + secondNumber + " = " + (firstNumber/secondNumber));
+            subTotal = itemPrice * quantity;
+            totalPrice += subTotal;
+        }
+
+        System.out.println( "Subtotal: $" + f.format(totalPrice));
+
+        tax = totalPrice * taxRate;
+        System.out.println( "Tax: $" + f.format(tax));
+
+        totalPrice += tax;
+        System.out.println( "Total: $" + f.format(totalPrice));
     }
 }
