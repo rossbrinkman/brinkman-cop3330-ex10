@@ -14,14 +14,15 @@ public class App
 
         DecimalFormat f = new DecimalFormat("##.00");
         Scanner scanner = new Scanner(System.in);
-        float totalPrice = 0.00f, tax;
+        float totalPrice = 0.00f, tax, subTotal;
         final int items = 3;
         final float taxRate = .055f;
+        String end;
 
         for (int i = 1; i <= items; i++)
         {
             int quantity;
-            float itemPrice, subTotal;
+            float itemPrice;
             System.out.println( "Enter the price of item " + i + ": " );
             itemPrice = scanner.nextFloat();
 
@@ -32,12 +33,14 @@ public class App
             totalPrice += subTotal;
         }
 
-        System.out.println( "Subtotal: $" + f.format(totalPrice));
-
+        subTotal = totalPrice;
         tax = totalPrice * taxRate;
-        System.out.println( "Tax: $" + f.format(tax));
-
         totalPrice += tax;
-        System.out.println( "Total: $" + f.format(totalPrice));
+
+        end = "Subtotal: $" + f.format(subTotal) + "\n" +
+                "Tax: $" + f.format(tax) + "\n" +
+                "Total: $" + f.format(totalPrice);
+
+        System.out.println(end);
     }
 }
